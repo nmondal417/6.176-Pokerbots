@@ -93,15 +93,28 @@ class Player(Bot):
         #    max_cost = max_raise - my_pip  # the cost of a maximum bet/raise
 
         try_raise = False
-
+        '''
         all_cards = my_cards + board_cards
         for i in range(0, len(all_cards) - 1):
             for j in range(i+1, len(all_cards)):
                 if all_cards[i][0] == all_cards[j][0]:
                     try_raise = True
+        '''
+       
+        
+        for my_card in my_cards:
+            for board_card in board_cards:
+                if my_card[0] == board_card[0]:
+                    try_raise = True
+        for i in range(0, len(my_cards) - 1):
+            for j in range(i+1, len(my_cards)):
+                if my_cards[i][0] == my_cards[j][0]:
+                    try_raise = True
         if try_raise and RaiseAction in legal_actions:
             min_raise, max_raise = round_state.raise_bounds()
             return RaiseAction(max_raise)
+
+        
 
         if CheckAction in legal_actions:  # check-call
             return CheckAction()
